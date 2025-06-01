@@ -6,7 +6,8 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f8f8f8;
+      background-image: url('https://i.pinimg.com/originals/7e/77/23/7e7723e8fa1732fdf7f71c07bc5d7ebd.jpg');
+      background-size: cover;
       text-align: center;
       padding: 50px;
     }
@@ -14,21 +15,22 @@
       position: relative;
       width: 300px;
       height: 200px;
-      background: #ff6b6b;
+      background: rgba(255,255,255,0.2);
       margin: 0 auto;
       cursor: pointer;
       border-radius: 8px;
       overflow: hidden;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      perspective: 1000px;
     }
     .flap {
       position: absolute;
       top: 0;
       width: 300px;
       height: 100px;
-      background: #ff4b4b;
+      background: #000;
       clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
-      transition: transform 0.5s;
+      transition: transform 0.8s ease;
       transform-origin: top;
     }
     .letter {
@@ -37,22 +39,28 @@
       left: 10px;
       right: 10px;
       bottom: 20px;
-      background: #fff;
+      background: rgba(255, 255, 255, 0.95);
       border-radius: 4px;
       padding: 20px;
       transform: translateY(100%);
-      transition: transform 0.5s;
+      transition: transform 0.8s ease;
     }
     .envelope.open .flap {
       transform: rotateX(180deg);
     }
     .envelope.open .letter {
       transform: translateY(0);
+      animation: explosion 1s ease forwards;
     }
     .letter p {
       margin: 0;
       font-size: 16px;
-      color: #333;
+      color: #000;
+    }
+    @keyframes explosion {
+      0% { box-shadow: 0 0 0 rgba(255,255,255,0); }
+      50% { box-shadow: 0 0 50px rgba(255,255,255,0.9); }
+      100% { box-shadow: 0 0 0 rgba(255,255,255,0); }
     }
   </style>
 </head>
@@ -65,8 +73,7 @@
   <div class="letter">
     <p>Querida lontrinha,</p>
     <p>Você é meu sol, minha alegria e minha inspiração. Cada dia com você é um presente que agradeço de coração. Te amo para sempre!</p>
-    <p>Com todo meu amor,</p>
-    <p>Seu namorado 💖</p>
+    <p>Com todo meu amor 💖</p>
   </div>
 </div>
 
