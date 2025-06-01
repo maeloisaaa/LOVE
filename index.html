@@ -6,7 +6,7 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-image: url('https://i.pinimg.com/originals/7e/77/23/7e7723e8fa1732fdf7f71c07bc5d7ebd.jpg');
+      background-color: pink;
       background-size: cover;
       text-align: center;
       padding: 50px;
@@ -58,6 +58,14 @@
       font-size: 16px;
       color: #000;
     }
+    .particle {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: white;
+      border-radius: 50%;
+      pointer-events: none;
+    }
   </style>
 </head>
 <body>
@@ -78,6 +86,13 @@
 </div>
 
 <script>
+  const audio = document.getElementById('bgm');
+  document.addEventListener('DOMContentLoaded', () => {
+    audio.play().catch(err => {
+      console.log('Playback error:', err);
+    });
+  });
+
   function openLetter() {
     const envelope = document.querySelector('.envelope');
     envelope.classList.toggle('open');
@@ -88,20 +103,15 @@
   }
 
   function createExplosion() {
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 30; i++) {
       const particle = document.createElement('div');
       particle.className = 'particle';
-      particle.style.position = 'absolute';
-      particle.style.width = '10px';
-      particle.style.height = '10px';
-      particle.style.background = 'white';
-      particle.style.borderRadius = '50%';
       particle.style.left = '150px';
       particle.style.top = '100px';
       document.body.appendChild(particle);
 
       const angle = Math.random() * 2 * Math.PI;
-      const distance = Math.random() * 100;
+      const distance = Math.random() * 150;
       const x = Math.cos(angle) * distance;
       const y = Math.sin(angle) * distance;
 
@@ -109,12 +119,12 @@
         { transform: 'translate(0,0)', opacity: 1 },
         { transform: `translate(${x}px, ${y}px)`, opacity: 0 }
       ], {
-        duration: 1000,
+        duration: 1200,
         easing: 'ease-out',
         fill: 'forwards'
       });
 
-      setTimeout(() => particle.remove(), 1000);
+      setTimeout(() => particle.remove(), 1200);
     }
   }
 </script>
