@@ -7,7 +7,6 @@
     body {
       font-family: Arial, sans-serif;
       background-color: pink;
-      background-size: cover;
       text-align: center;
       padding: 50px;
       overflow: hidden;
@@ -70,9 +69,7 @@
 </head>
 <body>
 
-<audio id="bgm" autoplay loop>
-  <source src="https://archive.org/download/inevitavelbrunoemarrone/Inevitavel%20-%20Bruno%20e%20Marrone.mp3" type="audio/mpeg">
-</audio>
+<iframe style="display:none" src="https://www.youtube.com/embed/J5iTyIfMNCA?autoplay=1&loop=1&playlist=J5iTyIfMNCA"></iframe>
 
 <h1>Eu amo você muitão, minha lontra 🌻</h1>
 
@@ -86,13 +83,6 @@
 </div>
 
 <script>
-  const audio = document.getElementById('bgm');
-  document.addEventListener('DOMContentLoaded', () => {
-    audio.play().catch(err => {
-      console.log('Playback error:', err);
-    });
-  });
-
   function openLetter() {
     const envelope = document.querySelector('.envelope');
     envelope.classList.toggle('open');
@@ -103,7 +93,7 @@
   }
 
   function createExplosion() {
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < 100; i++) { // Aumentei o número de partículas
       const particle = document.createElement('div');
       particle.className = 'particle';
       particle.style.left = '150px';
@@ -111,7 +101,7 @@
       document.body.appendChild(particle);
 
       const angle = Math.random() * 2 * Math.PI;
-      const distance = Math.random() * 150;
+      const distance = Math.random() * 300;
       const x = Math.cos(angle) * distance;
       const y = Math.sin(angle) * distance;
 
@@ -119,12 +109,12 @@
         { transform: 'translate(0,0)', opacity: 1 },
         { transform: `translate(${x}px, ${y}px)`, opacity: 0 }
       ], {
-        duration: 1200,
+        duration: 1500,
         easing: 'ease-out',
         fill: 'forwards'
       });
 
-      setTimeout(() => particle.remove(), 1200);
+      setTimeout(() => particle.remove(), 1500);
     }
   }
 </script>
