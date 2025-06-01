@@ -10,6 +10,7 @@
       background-size: cover;
       text-align: center;
       padding: 50px;
+      overflow: hidden;
     }
     .envelope {
       position: relative;
@@ -22,13 +23,14 @@
       overflow: hidden;
       box-shadow: 0 4px 10px rgba(0,0,0,0.3);
       perspective: 1000px;
+      transition: transform 0.8s ease;
     }
     .flap {
       position: absolute;
       top: 0;
       width: 300px;
       height: 100px;
-      background: #000;
+      background: white;
       clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
       transition: transform 0.8s ease;
       transform-origin: top;
@@ -50,25 +52,23 @@
     }
     .envelope.open .letter {
       transform: translateY(0);
-      animation: explosion 1s ease forwards;
     }
     .letter p {
       margin: 0;
       font-size: 16px;
       color: #000;
     }
-    @keyframes explosion {
-      0% { box-shadow: 0 0 0 rgba(255,255,255,0); }
-      50% { box-shadow: 0 0 50px rgba(255,255,255,0.9); }
-      100% { box-shadow: 0 0 0 rgba(255,255,255,0); }
-    }
   </style>
 </head>
 <body>
 
+<audio id="bgm" autoplay loop>
+  <source src="https://archive.org/download/inevitavelbrunoemarrone/Inevitavel%20-%20Bruno%20e%20Marrone.mp3" type="audio/mpeg">
+</audio>
+
 <h1>Eu amo você muitão, minha lontra 🌻</h1>
 
-<div class="envelope" onclick="this.classList.toggle('open')">
+<div class="envelope" onclick="openLetter()">
   <div class="flap"></div>
   <div class="letter">
     <p>Querida lontrinha,</p>
@@ -78,7 +78,45 @@
 </div>
 
 <script>
-  // Nenhum JS necessário além do toggle de classe no onclick
+  function openLetter() {
+    const envelope = document.querySelector('.envelope');
+    envelope.classList.toggle('open');
+
+    if (envelope.classList.contains('open')) {
+      createExplosion();
+    }
+  }
+
+  function createExplosion() {
+    for (let i = 0; i < 20; i++) {
+      const particle = document.createElement('div');
+      particle.className = 'particle';
+      particle.style.position = 'absolute';
+      particle.style.width = '10px';
+      particle.style.height = '10px';
+      particle.style.background = 'white';
+      particle.style.borderRadius = '50%';
+      particle.style.left = '150px';
+      particle.style.top = '100px';
+      document.body.appendChild(particle);
+
+      const angle = Math.random() * 2 * Math.PI;
+      const distance = Math.random() * 100;
+      const x = Math.cos(angle) * distance;
+      const y = Math.sin(angle) * distance;
+
+      particle.animate([
+        { transform: 'translate(0,0)', opacity: 1 },
+        { transform: `translate(${x}px, ${y}px)`, opacity: 0 }
+      ], {
+        duration: 1000,
+        easing: 'ease-out',
+        fill: 'forwards'
+      });
+
+      setTimeout(() => particle.remove(), 1000);
+    }
+  }
 </script>
 
 </body>
